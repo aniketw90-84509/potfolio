@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aniket | Portfolio</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --accent: #7c5cfc;
+      --accent2: #c084fc;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: rgba(255,255,255,0.08);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .logo {
+      font-size: 1.3rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    nav ul a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      background: radial-gradient(ellipse at 60% 30%, rgba(124,92,252,0.15), transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(192,132,252,0.1), transparent 50%);
+    }
+
+    .avatar {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; margin-bottom: 1.5rem;
+      box-shadow: 0 0 40px rgba(124,92,252,0.4);
+    }
+
+    #hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1px; }
+    #hero h1 span { background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    #hero p { color: var(--muted); max-width: 500px; margin: 1rem auto 2rem; font-size: 1.1rem; }
+
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      padding: .75rem 1.75rem; border-radius: 50px; font-size: .95rem;
+      font-weight: 600; cursor: pointer; text-decoration: none; transition: all .25s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none;
+      box-shadow: 0 4px 20px rgba(124,92,252,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124,92,252,0.5); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Sections ── */
+    section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .75rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .5rem;
+    }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 3rem; }
+
+    /* ── About ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .about-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+    }
+    .about-card h3 { font-size: 1rem; color: var(--accent2); margin-bottom: .5rem; }
+    .about-card p { color: var(--muted); font-size: .9rem; }
+
+    /* ── Skills ── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .skill-tag {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: .5rem 1rem; font-size: .85rem; color: var(--muted);
+      transition: all .2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      transition: transform .25s, border-color .25s;
+    }
+    .project-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .project-emoji { font-size: 2rem; margin-bottom: 1rem; }
+    .project-card h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+    .project-card p { color: var(--muted); font-size: .9rem; margin-bottom: 1rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .project-tag {
+      background: rgba(124,92,252,0.15); color: var(--accent2);
+      border-radius: 6px; padding: .2rem .6rem; font-size: .75rem;
+    }
+
+    /* ── Contact ── */
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.5rem; text-align: center;
+    }
+    .contact-box p { color: var(--muted); margin-bottom: 1.5rem; }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border); color: var(--muted); font-size: .85rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav ul { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Aniket</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="avatar">🧑‍💻</div>
+    <h1>Hi, I'm <span>Aniket</span></h1>
+    <p>A creative developer &amp; designer passionate about building beautiful digital experiences.</p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">Who am I</div>
+    <div class="section-title">About Me</div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>🎨 Design</h3>
+        <p>I craft clean, intuitive interfaces that balance aesthetics with usability — from wireframes to polished pixel-perfect UIs.</p>
+      </div>
+      <div class="about-card">
+        <h3>⚡ Development</h3>
+        <p>Full-stack developer comfortable in modern web technologies, building scalable apps that perform great on every device.</p>
+      </div>
+      <div class="about-card">
+        <h3>🏗️ Architecture</h3>
+        <p>I enjoy thinking in systems — planning clean project structures, APIs, and workflows that are easy to maintain and extend.</p>
+      </div>
+      <div class="about-card">
+        <h3>🌍 3D & Creative</h3>
+        <p>Background in 3D modeling and visualization using Blender, bringing a unique spatial perspective to digital design.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">What I know</div>
+    <div class="section-title">Skills &amp; Tools</div>
+    <div class="skills-grid">
+      <span class="skill-tag">HTML &amp; CSS</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">React</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">Git &amp; GitHub</span>
+      <span class="skill-tag">Blender</span>
+      <span class="skill-tag">Figma</span>
+      <span class="skill-tag">Vercel</span>
+      <span class="skill-tag">REST APIs</span>
+      <span class="skill-tag">3D Modeling</span>
+      <span class="skill-tag">UI / UX Design</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">What I've built</div>
+    <div class="section-title">Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-emoji">🏠</div>
+        <h3>Interior Visualizer</h3>
+        <p>Photorealistic 3D interior renders for residential and commercial spaces using Blender.</p>
+        <div class="project-tags">
+          <span class="project-tag">Blender</span>
+          <span class="project-tag">3D</span>
+          <span class="project-tag">Rendering</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-emoji">🌐</div>
+        <h3>Portfolio Website</h3>
+        <p>This responsive personal portfolio built with pure HTML, CSS, and JavaScript — deployed on Vercel.</p>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">Vercel</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-emoji">🤖</div>
+        <h3>Python Automation</h3>
+        <p>Scripts to automate repetitive workflows, file management, and data processing tasks.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Automation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Let's talk</div>
+    <div class="section-title">Get in Touch</div>
+    <div class="contact-box">
+      <p>Open to freelance projects, collaborations, or just a friendly chat. Drop me a message!</p>
+      <div class="contact-links">
+        <a href="mailto:aniket@example.com" class="btn btn-primary">✉️ Email Me</a>
+        <a href="https://github.com/aniketw90-84509" target="_blank" class="btn btn-outline">🐙 GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Aniket · Built with ❤️ · Deployed on Vercel</p>
+  </footer>
+
+</body>
+</html>
